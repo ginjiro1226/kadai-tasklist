@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,9 +37,13 @@ public class IndexServlet extends HttpServlet {
 
         List<Task> tasks = em.createNamedQuery("getAllTasks", Task.class)
                                    .getResultList();
-        response.getWriter().append(Integer.valueOf(tasks.size()).toString());
 
         em.close();
+
+        request.setAttribute("tasks", tasks);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/index.jsp");
+        rd.forward(request, response);
     }
 
 }
