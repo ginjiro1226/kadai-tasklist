@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+
 import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
@@ -53,6 +54,7 @@ public class UpdateServlet extends HttpServlet {
             // データベースを更新
             em.getTransaction().begin();
             em.getTransaction().commit();
+            request.getSession().setAttribute("flush", "更新が完了しました。");       // ここを追記
             em.close();
 
             // セッションスコープ上の不要になったデータを削除
